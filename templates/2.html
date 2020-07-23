@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Naan komali 1+1</title>
+	<link rel="stylesheet"  href='{{url_for("static",filename="home.css")}}'>
+	<style type="text/css">
+		div
+		{
+			width: 100%;
+			text-align: center;
+		}
+		a
+		{
+			font-size: 2em;
+
+		}
+	</style>
+</head>
+<body>
+		<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+		  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{%for i in range(0,no_of_video-1)%}
+<div class="card full">
+  <img src="{{img[i]}}"  id="img{{i}}" class="card-img-top thumb" onclick="imageclicked('{{i}}');">
+  <div class="card-body">
+   <a a id="a{{i}}" class="a" href="{{video[i]}}" target="blank_"> <h5 class="card-title">{{title[i]}}</h5></a>
+  </div>
+</div>
+{%endfor%}
+<!-- {%for i in range(0,no_of_video)%}
+<div class="full">
+<img src="{{img[i]}}" id="img{{i}}" class="thumb" width="120" onclick="imageclicked('{{i}}');"><br><a id="a{{i}}" class="a" href="{{video[i]}}" target="blank_">{{title[i]}}</a>
+</div><br>
+{%endfor%} -->
+<script >{{script | safe}}
+function imageclicked(n)
+{
+n=parseInt(n)
+$('<a href="'+$('#a'+n).attr("href")+'"target="blank"></a>')[0].click();    
+}
+</script>
+
+<script type="text/javascript" src='{{url_for("static",filename="home.js")}}'></script>
+</body>
+</html>
