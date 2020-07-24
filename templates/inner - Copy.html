@@ -9,10 +9,6 @@
 {
 	margin: 1em;
 }
-a
-{
-	color: white;
-}
 .container
 {
 	display: flex;
@@ -37,6 +33,10 @@ a
 background-color: #72a1d0;	
 border-bottom: 0.3em solid #7474a2;
 font-size: 1.5em;
+}
+a
+{
+	color: white;
 }
 .form
 {
@@ -81,61 +81,85 @@ font-size: 1.5em;
 	transition: left 0.2s ease-in;
 	box-shadow: 0 0 2px #fff, 0 0 3px #c600eb, 0 0 4px #c600eb, 0 0 5px blue, 0 0 6px blue, 0 0 7px blue, 0 0 8px blue;
 }
-
-body
-{
-	overflow: auto;
-}
 iframe
 {
 
 }
-.toggle::after
+body
 {
-	display: inline-block;
-    margin-left: .255em;
-    vertical-align: .255em;
-    content: "";
-    border-top: .3em solid;
-    border-right: .3em solid transparent;
-    border-bottom: 0;
-    border-left: .3em solid transparent;
-}
-
-
-
-
-
-
+	overflow: auto;
 }
 </style>
 </head>
 <body>
 <div id="body1">
-    <ul class="nav">
-        <li class="nav-item dropdown">
-        <a class="nav-link toggle">
+	<ul class="nav">
+   <li class="nav-item dropdown">
+        <a class="nav-link toggle" href="#" >
           Videos
         </a>
         <div id="drop">
-        	<p><a class="dropdown-item play" href="#" onclick="$('iframe').attr('src','/instagram');" style="font-size:2em;font-weight: bolder;background-image: linear-gradient(to right,red,purple,purple,red);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">IGTV</a></p>
+        	<p><a class="dropdown-item play" onclick="$('iframe').attr('src','/instagram');" style="font-size:2em;font-weight: bolder;background-image: linear-gradient(to right,yellow,#ff5200,red,purple,purple,red);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">IGTV</a></p>
+        	<!-- <p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p><p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p><p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+        	<p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p> -->
         	{%for i in range(0,no_of_play)%}
-          <p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('#body1').css('display','none');$('#body2').css('display','block');$('body').css('overflow','auto');">{{tr[i]}}</a></p>
+          <p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
           {%endfor%}
       </li>
-       <li class="nav-item">
-        <a class="nav-link" href="#" onclick="$('#body1').css('display','none');$('#body2').css('display','block');$('body').css('overflow','auto');filter('');">Instagram</a>
+      <li class="nav-item">
+        <a class="nav-link" href="#" onclick="$('#body1').css('display','none');$('#body2').css('display','block');$('body').css('overflow','auto');">Instagram</a>
       </li>
-    </ul>
-  <div height="100%" width="100%" class="embed-responsive embed-responsive-4by3"><iframe src="copy.html" height="100%" width="100%" allowfullscreen="" onload="alert();"></iframe></div>
+</ul>
+<div height="100%" width="100%" class="em"><iframe src="copy.html" height="100%" width="100%" allowfullscreen="" ></iframe></div>
 </div>
 
 
 <div id="body2">
-    <ul class="nav">
-    	<li class="nav-item">
+	<ul class="nav">
+  <li class="nav-item">
     <a class="nav-link"  href="#" onclick="$('#body2').css('display','none');$('#body1').css('display','block');$('body').css('overflow','hidden');">Videos</a>
   </li>
+  <li class="nav-item">
+        <a class="nav-link" onclick="filter('channel');" href="#" style="cursor: pointer;">Channel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="filter('actor');" href="#" style="cursor: pointer;">Artist</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="filter('director');" href="#" style="cursor: pointer;">Director</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="filter('editor');" href="#" style="cursor: pointer;">Editor</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="filter('cinematographer');" href="#" style="cursor: pointer;">Cinematographer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="filter('designers');" href="#" style="cursor: pointer;">Designers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="filter('others');" href="#" style="cursor: pointer;">More</a>
+      </li>
+</ul>
+<!-- <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #72a1d0;">
+  <a class="navbar-brand" href="#" onclick="$('#body2').css('display','none');$('#body1').css('display','block');">Videos</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
     	<li class="nav-item">
         <a class="nav-link" onclick="filter('channel');" href="#" style="cursor: pointer;">Channel</a>
       </li>
@@ -158,7 +182,8 @@ iframe
         <a class="nav-link" onclick="filter('others');" href="#" style="cursor: pointer;">More</a>
       </li>
     </ul>
-  
+  </div>
+</nav> -->
 <div style="display: flex;justify-content: flex-end;">
 	<form class="form">
 	<input type="text" class="formin" name="name">
@@ -166,12 +191,14 @@ iframe
 </form>
 </div>
 <div class="container">
-	<div id="first"></div>
+	<div  id="first"></div>
+	
 </div>
 </div>
-	<div id="dot"></div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script><script type="text/javascript">
+<div id="dot"></div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script type="text/javascript">
 	var h=$(window).height();
 	var del=$('.nav-link').height()+2*parseInt($('.nav-link').css("padding-top").replace("px",""));
 	// alert(del)
@@ -182,7 +209,7 @@ iframe
 <!-- <script type="text/javascript" src='{{url_for("static",filename="home.js")}}'></script> -->
 <script>
 	// {{ script | safe }}
-	var sw=0;
+var sw=0;
 	$('.toggle').on("click",function()
 		{
 			if(sw==0){
@@ -216,6 +243,7 @@ iframe
 	const body1=$('#body1').html();
 	const body2=$('#body2').html();
 	$('#body1').css("display","none");
+	
 	$('.form').submit(function(e)
 	{
 		e.preventDefault();
