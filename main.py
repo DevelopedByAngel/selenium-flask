@@ -12,7 +12,7 @@ chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-driverig=driver
+# driverig=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 # driver.get("https://www.google.com")
 # html = driver.page_source
 @app.route("/a")
@@ -73,29 +73,40 @@ def show(url):
     else:
         return render_template('2.html', video=l, no_of_video=len(l), title=t, img=imag, script="")
 def link(url):
-    driverl = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    driverl.get(url)
-    driverl.execute_script('window.scrollTo(0,((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)-((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)/1.5)))')
-    time.sleep(0.5)
-    driverl.execute_script('window.scrollTo(0,((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)-((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)/2)))')
-    time.sleep(0.5)
-    driverl.execute_script('window.scrollTo(0,((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)-((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)/3)))')
-    time.sleep(0.5)
-    driverl.execute_script('window.scrollTo(0,(document.querySelector("ytd-playlist-video-list-renderer").scrollHeight))')
-    time.sleep(0.5)
-    html = driverl.page_source
+    # driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver.get(url)
+    while (True):
+        try:
+            driver.execute_script(
+                'window.scrollTo(0,((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)-((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)/1.5)))')
+            time.sleep(0.5)
+            driver.execute_script(
+                'window.scrollTo(0,((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)-((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)/2)))')
+            time.sleep(0.5)
+            driver.execute_script(
+                'window.scrollTo(0,((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)-((document.querySelector("ytd-playlist-video-list-renderer").scrollHeight)/3)))')
+            time.sleep(0.5)
+            driver.execute_script(
+                'window.scrollTo(0,(document.querySelector("ytd-playlist-video-list-renderer").scrollHeight))')
+            time.sleep(0.5)
+            break
+        except Exception as e:
+            continue
+    html = driver.page_source
     # driver.close()
     soup =bs4.BeautifulSoup(html,features="lxml")
     a = soup.find_all("a")
     clicklink = []
     for i in a:
         if (str(i.attrs.get("id")) == "thumbnail" and i.attrs.get("href") != None):
-            clicklink.append("https://www.youtube.com/"+i.attrs.get("href"))
+            if("https://www.youtube.com/"+i.attrs.get("href") not in clicklink):
+                clicklink.append("https://www.youtube.com/"+i.attrs.get("href"))
     title = []
     span = soup.find_all("span")
     for i in span:
         if (str(i.attrs.get("id")) == "video-title" and str(i.text).strip() != ''):
-            title.append(str(i.text).strip())
+            if(str(i.text).strip() not in title):
+                title.append(str(i.text).strip())
     # soup = BeautifulSoup(html, features="lxml")
     div = soup.find_all("ytd-thumbnail")
     image = []
@@ -103,66 +114,37 @@ def link(url):
     for d in div:
         im = d.find("a").find("yt-img-shadow").find("img")
         print(im.attrs.get("src"))
-        image.append(im.attrs.get("src"))
+        if(im.attrs.get("src") not in image):
+            image.append(im.attrs.get("src"))
     print("ok",len(clicklink))
     return clicklink,title,image
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @app.route("/instagram")
-# def ig():
-#     driverig.get("https://www.instagram.com/blacksheeptamil/channel/?hl=en")
-#     time.sleep(2)
-#     html = driverig.page_source
-#     # driverig.close()
-#     soup = bs4.BeautifulSoup(html, 'lxml')
-#     ret = soup.find_all("a")
-#     d = soup.find_all("div")
-#
-#     pl = []
-#     img = []
-#     text = []
-#     print('r',len(ret))
-#     print('s',len(soup))
-#     for i in ret:
-#         if "_bz0w" in i.attrs.get("class"):
-#             pl.append("https://www.instagram.com"+i.attrs.get("href"))
-#             di = i.find("div").find("div")
-#             # text.append(di.text)
-#             image_src = str(di.attrs.get("style"))
-#             # print(image_src[image_src.index('(') + 2:image_src.index(')') - 1])
-#             img.append(image_src[image_src.index('(') + 2:image_src.index(')') - 1])
-#     print(len(pl))
-#     for i in d:
-#         if i.attrs.get("class") == ['_2XLe_']:
-#             text.append(i.text)
-#     if len(pl) != 0:
-#         # return (pl,len(pl),text,img,"")
-#         return render_template('2.html', video=pl, no_of_video=len(pl), title=text, img=img, script="")
-#     else:
-#         ig()
-        # print(a)
-
-
-
-    # except :
-    #     return render_template("innner.html", no_of_play=len(li), play=li, tr=t,script="alert('p');")
-    # return render_template("inner.html",no_of_play=0,play=[],tr=[],script="")
+@app.route("/instagram")
+def ig():
+    driver.get("https://www.instagram.com/blacksheeptamil/channel/?hl=en")
+    time.sleep(4)
+    html = driver.page_source
+    # driverig.close()
+    soup =bs4.BeautifulSoup(html, 'lxml')
+    ret = soup.find_all("a")
+    d = soup.find_all("div")
+    pl=[]
+    img=[]
+    text=[]
+    for i in ret:
+        if "_bz0w" in i.attrs.get("class") :
+            pl.append("https://www.instagram.com"+i.attrs.get("href"))
+            di=i.find("div").find("div")
+            # text.append(di.text)
+            image_src=str(di.attrs.get("style"))
+            print(image_src[image_src.index('(')+2:image_src.index(')')-1])
+            img.append(image_src[image_src.index('(')+2:image_src.index(')')-1])
+    for i in d:
+        if i.attrs.get("class")==['_2XLe_']:
+            text.append(i.text)
+    if len(pl)!=0:
+        # return (pl,len(pl),text,img,"")
+        return render_template('2.html', video=pl, no_of_video=len(pl), title=text, img=img, script="")
+    else:
+        ig()
 if __name__=='__main__':
     app.run()
