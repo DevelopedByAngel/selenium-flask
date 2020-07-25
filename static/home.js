@@ -59,6 +59,6 @@ function c()
 		$('iframe').css("height",minus+"px");
 	};
 	function clicked(e){
-			$("#header > span").text($(e).text());
 			$('title').text($(e).text());
+			$('.embed-responsive').css("filter","brightness(50%)")
 		};
