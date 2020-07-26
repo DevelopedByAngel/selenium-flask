@@ -11,11 +11,16 @@ chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+try:
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+except:
+    driver = webdriver.Chrome(options=chrome_options,
+                              executable_path=r'C:\\Users\CLEMENT\Downloads\chromedriver_win32\chromedriver.exe')
+
 # driverig=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 # driver.get("https://www.google.com")
 # html = driver.page_source
-@app.route("/a")
+@app.route("/")
 def main():
     # return ("<h1>"+html[:30]+"</h1>")
     # url = "PLLADcgxbx5IUdyln2GsoEViWCw6kHp0Ey"
@@ -50,7 +55,7 @@ def main():
         print(len(li), len(t))
         if len(li) == 0 or len(t) == 0:
             print("again")
-            return main(url)
+            return main()
         else:
             # no_of_play1, play1, tr1, script1 = next("https://www.youtube.com/c/Unakkennapaa/playlists")
             # print(len(li) + no_of_play1, li + play1, t + tr1, '' + script1)
@@ -121,7 +126,9 @@ def link(url):
 @app.route("/instagram")
 def ig():
     driver.get("https://www.instagram.com/blacksheeptamil/channel/?hl=en")
-    time.sleep(4)
+    time.sleep(0.5)
+    html = driver.page_source
+    time.sleep(0.5)
     html = driver.page_source
     # driverig.close()
     soup =bs4.BeautifulSoup(html, 'lxml')

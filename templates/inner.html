@@ -5,6 +5,68 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<!-- <link rel="stylesheet" type="text/css" href="innner.css"> -->
 	<style >
+		::-webkit-scrollbar {
+  width: 0px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent; 
+}
+::-webkit-scrollbar-thumb {
+  background-color: transparent; /*scroller normally */
+}
+::-webkit-scrollbar-thumb:hover {
+ background-color: transparent;/*scroller on hover */
+}
+.loader,#circleload
+{
+	position: fixed;
+	top: 10%;
+	left: 0px;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+    z-index: 5;
+
+}
+.loader > div
+{
+	height: 100px;
+    width: 100px;
+    border: 0px solid transparent;
+    border-radius: 50%; 
+}
+#circleload > div
+{
+    height: 100px;
+    width: 100px;
+    border: 10px solid white;
+    border-bottom-color: blue;
+    border-radius: 50%; 
+    animation-name: load;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+
+}
+@keyframes load
+{
+	from{transform: rotateZ(0deg)}
+	to{transform: rotateZ(360deg);}
+}
+.loader > div > img
+{
+	    opacity: 1;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    border: 0px solid white;
+    border-radius: 50%;
+}
+a
+{
+    text-decoration: none;
+}s
 .card
 {
 	margin: 1em;
@@ -37,6 +99,7 @@ a
 background-color: #72a1d0;	
 border-bottom: 0.3em solid #7474a2;
 font-size: 1.5em;
+z-index: 6;
 }
 .form
 {
@@ -67,6 +130,9 @@ font-size: 1.5em;
 	overflow: scroll;
 	height: 100px;
 	height: 0px;
+	width:auto;
+	text-align: left;
+	background-color: #a7c5e2;
 }
 #dot
 {
@@ -103,11 +169,6 @@ iframe
 }
 
 
-
-
-
-
-}
 </style>
 </head>
 <body>
@@ -118,16 +179,24 @@ iframe
           Video
         </a>
         <div id="drop">
-        	<p><a class="dropdown-item play" href="#" onclick="$('iframe').attr('src','/instagram');" style="font-size:2em;font-weight: bolder;background-image: linear-gradient(to right,red,purple,purple,red);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">IGTV</a></p>
+        	<!-- <p><a class="dropdown-item play" href="#" onclick="$('iframe').attr('src','/instagram');" style="font-size:2em;font-weight: bolder;background-image: linear-gradient(to right,red,purple,purple,red);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">IGTV</a></p> -->
+        	<p><a class="dropdown-item play" href="#" onclick="alert('Coming soon');" style="font-size:2em;font-weight: bolder;background-image: linear-gradient(to right,red,purple,purple,red);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">IGTV</a></p>
         	{%for i in range(0,no_of_play)%}
-          <p id="td{{i}}" onclick="clicked(this);"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
+          <p id="td{{i}}" onclick="$('title').text($(this).text());
+			$('#frame').css('filter','brightness(50%)');
+			$('#circleload').css('display','flex');
+			$('.loader').css('display','flex');$('.toggle').click();"><a class="dropdown-item play" id="{{i}}" onclick="$('iframe').attr('src','/show/{{play[i]}}');">{{tr[i]}}</a></p>
           {%endfor%}
       </li>
        <li class="nav-item">
         <a class="nav-link" href="#" onclick="$('#body1').css('display','none');$('#body2').css('display','block');$('body').css('overflow','auto');filter('');">Instagram</a>
       </li>
     </ul>
-  <div height="100%" width="100%" class="embed-responsive embed-responsive-4by3"><iframe src="copy.html" height="100%" width="100%" allowfullscreen="" onload="alert();"></iframe></div>
+    <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/nrh_cBODAEI?start=420" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+  <div height="100%" width="100%" id="frame" class="embed-responsive embed-responsive-4by3"><iframe src="https://www.youtube.com/embed/nrh_cBODAEI?start=420" height="100%" width="100%" allowfullscreen=""  onload='$("#frame").css("filter","brightness(100%)");$("#circleload").css("display","none");$(".loader").css("display","none");'></iframe></div>
+  <div class="loader"><div><img src="https://scontent-ort2-1.cdninstagram.com/v/t51.2885-19/91035261_656543645148233_1225760645253693440_n.jpg?_nc_ht=scontent-ort2-1.cdninstagram.com&_nc_ohc=IWv9rUdTubMAX-8upjN&oh=c5188b1590b95008539bd91f0e3c8041&oe=5F3F22C2"></div></div>
+<div id="circleload"><div></div></div>
+
 </div>
 
 
@@ -170,8 +239,7 @@ iframe
 </div>
 </div>
 	<div id="dot"></div>
-
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script><script type="text/javascript">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script><script type="text/javascript">
 	var h=$(window).height();
 	var del=$('.nav-link').height()+2*parseInt($('.nav-link').css("padding-top").replace("px",""));
 	// alert(del)
@@ -179,9 +247,11 @@ iframe
 </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script type="text/javascript" src='../static/home.js'></script>
+
 <script type="text/javascript" src='{{url_for("static",filename="home.js")}}'></script>
 <script>
-	{{ script | safe }}
+	// {{ script | safe }}
 	var sw=0;
 	$('.toggle').on("click",function()
 		{
@@ -267,6 +337,7 @@ iframe
 			console.log(add);
 			$('.container').html(add);
 		});
+	
 	const ele=[
 	{
 		name:"Black sheep",
@@ -335,7 +406,7 @@ iframe
 	{
 		name:"Aravind Seiju ",
 		desc:"YouTuber",
-		img:"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/s320x320/103716297_2948792685169811_7466154298388178052_n.jpg?_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_ohc=_EqSvTvozA8AX-ESYOU&oh=1fa28278a92fe19d6a8020b2e8103aa2&oe=5F1B12ED",
+		img:"https://scontent-ort2-1.cdninstagram.com/v/t51.2885-19/103716297_2948792685169811_7466154298388178052_n.jpg?_nc_ht=scontent-ort2-1.cdninstagram.com&_nc_ohc=WspYqOtDrUcAX8umgm3&oh=f324d7ce7c490c93fe6ff0da465e7afe&oe=5F461D60",
 		id:"aravind_seiju",
 		alt:"aravind Seiju aravindseiju",
 		fil:"actor"
@@ -343,7 +414,7 @@ iframe
 	{
 		name:"Anbu Thasan  ",
 		desc:"#passionate",
-		img:"https://instagram.fmaa3-1.fna.fbcdn.net/v/t51.2885-15/e35/s320x320/90523205_628487294381642_7994375304584152432_n.jpg?_nc_ht=instagram.fmaa3-1.fna.fbcdn.net&_nc_cat=102&_nc_ohc=ilcsVwC7ViMAX_jFtUN&oh=71dbb05d4dde772063529a2920d4f690&oe=5F41744A",
+		img:"https://instagram.fmaa3-1.fna.fbcdn.net/v/t51.2885-15/e35/s320x320/93232664_347831672840074_2675536002256081855_n.jpg?_nc_ht=instagram.fmaa3-1.fna.fbcdn.net&_nc_cat=110&_nc_ohc=yAmv0wUTWiEAX__X7-A&oh=62aaba9e99f5b578c093b8b0031b4c15&oe=5F4601F2",
 		id:"anbu_thasan",
 		alt:"anbu anbuthasan anbudhasan ",
 		fil:"actor"
@@ -448,7 +519,7 @@ iframe
 	{
 		name:"Blacksheep Commercials ",
 		desc:" Commercial Vertical ",
-		img:" https://instagram.fmaa3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/84291470_660799391328421_6727653170639536128_n.jpg?_nc_ht=instagram.fmaa3-1.fna.fbcdn.net&_nc_ohc=ANO1xk5LfmIAX9fqXys&oh=0ec3212053eaa19b8402e5d7eefe6ce2&oe=5F3F50EB",
+		img:" https://scontent-ort2-1.cdninstagram.com/v/t51.2885-19/84291470_660799391328421_6727653170639536128_n.jpg?_nc_ht=scontent-ort2-1.cdninstagram.com&_nc_ohc=oeJ2UtzrOcQAX_LGXhd&oh=9358401ec63bc308c13e60daf87ab8e2&oe=5F449D11",
 		id:" blacksheepcommercials ",
 		alt:"blacksheepcommercials Commercial ",
 		fil:"others"
@@ -544,7 +615,7 @@ iframe
 	{
 		name:"Vijay Kumar GKPS",
 		desc:"தீராத தேடலோடு! 💜",
-		img:" data:image/jpeg;base64,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  ",
+		img:" https://scontent-ort2-1.cdninstagram.com/v/t51.2885-19/87710730_1066786393681005_4345283421988192256_n.jpg?_nc_ht=scontent-ort2-1.cdninstagram.com&_nc_ohc=D5F5NgFnc6EAX8L3yT8&oh=f703b238dec092a99fbeb5ff8f8e95e7&oe=5F4419E9",
 		id:"worldofgkps ",
 		alt:"Vijay kumar Vijaykumar ",
 		fil:" cinematographer "
@@ -768,7 +839,7 @@ iframe
 	{
 		name:"NiithiN Teaser ",
 		desc:"Editor, Actor, Designer",
-		img:" https://instagram.fmaa3-1.fna.fbcdn.net/v/t51.2885-15/e35/s320x320/95869903_168663764509238_8436903377476062510_n.jpg?_nc_ht=instagram.fmaa3-1.fna.fbcdn.net&_nc_cat=102&_nc_ohc=BExEuv0Pth8AX_6f_Zr&oh=a1345e46ab052a21d66b46f4202ad3f8&oe=5F40F223  ",
+		img:" https://scontent-ort2-1.cdninstagram.com/v/t51.2885-19/31222832_230267461075412_9213518106272464896_n.jpg?_nc_ht=scontent-ort2-1.cdninstagram.com&_nc_ohc=AGmqHpP7TlEAX9KNSXG&oh=dd2d54a14a4c8b08ba89d7b8805f4d06&oe=5F4769DA ",
 		id:"niithin_teaser ",
 		alt:"NiithiN nithin ",
 		fil:"editor "
@@ -800,7 +871,7 @@ iframe
 	{
 		name:"Azhaguvisagan ",
 		desc:"Creator",
-		img:" https://instagram.fmaa3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/50327975_2061294363958133_2130055907663413248_n.jpg?_nc_ht=instagram.fmaa3-1.fna.fbcdn.net&_nc_ohc=bFeOkxS750EAX_RzA7_&oh=736b2631733b738b8596379061ab4dd9&oe=5F41C275",
+		img:" https://scontent-ort2-1.cdninstagram.com/v/t51.2885-19/110224947_2631672150426848_6432244433584268608_n.jpg?_nc_ht=scontent-ort2-1.cdninstagram.com&_nc_ohc=Ft1w6U1P6P4AX_UNItA&oh=3288371773251643d2b7597084aa3cfd&oe=5F44AC4B",
 		id:"azhaguvisagan ",
 		alt:"visagan azhaguvisagan",
 		fil:"director "
@@ -825,7 +896,7 @@ iframe
 	{
 		name:"Fredick vijay",
 		desc:"Cinematographer | Photographer ",
-		img:" https://instagram.fmaa3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/106031938_577503879580927_3998612535031014080_n.jpg?_nc_ht=instagram.fmaa3-1.fna.fbcdn.net&_nc_ohc=K1BdsQCxJnEAX_gTtt5&oh=0b46433295b4072954ca23d3d162bf37&oe=5F3F4C85  ",
+		img:" https://scontent-ort2-1.cdninstagram.com/v/t51.2885-19/106031938_577503879580927_3998612535031014080_n.jpg?_nc_ht=scontent-ort2-1.cdninstagram.com&_nc_ohc=Ux7EnR6K8ekAX_ytJQp&oh=d2ffdcf03ea38e488855213da2f6a0a9&oe=5F47A07D",
 		id:"vijayfredrick_secrets ",
 		alt:"vijay Fredick ",
 		fil:"cinematographer "
@@ -1033,11 +1104,22 @@ iframe
 	{
 		name:"Bala ",
 		desc:"encyclopedia",
-		img:" https://instagram.fmaa3-1.fna.fbcdn.net/v/t51.2885-15/e35/107464202_177771577074218_7486480985536842717_n.jpg?_nc_ht=instagram.fmaa3-1.fna.fbcdn.net&_nc_cat=102&_nc_ohc=jrkXzHIZHCUAX9qboyo&oh=201eee95a8a6a4b62126bacd282d3a2d&oe=5F1B9721",
+		img:" https://instagram.fmaa3-1.fna.fbcdn.net/v/t51.2885-15/e35/109448436_158329975855524_1642614453009079936_n.jpg?_nc_ht=instagram.fmaa3-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=4jQlhZ_h8XUAX_IuT7J&oh=2f23da82fa15032180e8218942d798a0&oe=5F1FB044",
 		id:"bala_kho",
 		alt:"bala_kho",
 		fil:"others"
 	}
+	,
+	{
+		name:"Jayanthi ",
+		desc:"jayanthi ",
+		img:" https://instagram.fmaa3-1.fna.fbcdn.net/v/t51.2885-15/e35/c180.0.720.720a/s320x320/41311649_766110573734977_5842392959625731862_n.jpg?_nc_ht=instagram.fmaa3-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=OpavumRZsAsAX-xzGeZ&oh=53ef6249bd18267555933985578fac8d&oe=5F48816C  ",
+		id:" jayanthi.niki ",
+		alt:" jayanthi.niki ",
+		fil:" actor "
+	}
+
+	
 	// ,
 	// {
 	// 	name:" .... ",
