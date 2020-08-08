@@ -1,5 +1,6 @@
 from flask import Flask,render_template
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import bs4
 # from bs4  import BeautifulSoup
 import os
@@ -123,35 +124,5 @@ def link(url):
             image.append(im.attrs.get("src"))
     print("ok",len(clicklink))
     return clicklink,title,image
-@app.route("/instagram")
-def ig():
-    driver.get("https://www.instagram.com/blacksheeptamil/channel/?hl=en")
-    time.sleep(0.5)
-    html = driver.page_source
-    time.sleep(0.5)
-    html = driver.page_source
-    # driverig.close()
-    soup =bs4.BeautifulSoup(html, 'lxml')
-    ret = soup.find_all("a")
-    d = soup.find_all("div")
-    pl=[]
-    img=[]
-    text=[]
-    for i in ret:
-        if "_bz0w" in i.attrs.get("class") :
-            pl.append("https://www.instagram.com"+i.attrs.get("href"))
-            di=i.find("div").find("div")
-            # text.append(di.text)
-            image_src=str(di.attrs.get("style"))
-            print(image_src[image_src.index('(')+2:image_src.index(')')-1])
-            img.append(image_src[image_src.index('(')+2:image_src.index(')')-1])
-    for i in d:
-        if i.attrs.get("class")==['_2XLe_']:
-            text.append(i.text)
-    if len(pl)!=0:
-        # return (pl,len(pl),text,img,"")
-        return render_template('2.html', video=pl, no_of_video=len(pl), title=text, img=img, script="")
-    else:
-        ig()
 if __name__=='__main__':
     app.run()
