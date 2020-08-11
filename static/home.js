@@ -9,7 +9,3 @@ $(document).ready(function()
 		$('#frame').css("height",h-del+'px');
 	
 	});
-
-
-
-	
